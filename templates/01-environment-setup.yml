@@ -239,29 +239,29 @@ Resources:
           Arn: !GetAtt LambdaRemediationNACL.Arn
           Id: "GuardDutyEvent-Lambda-Trigger-NACL"
 
-  MacieAlertEvent: 
-    Type: "AWS::Events::Rule"
-    Properties: 
-      Name: 
-        Fn::Join:
-          - '-'
-          - [!Ref ResourceName, 'macie-alert']
-      Description: "All Macie Alerts"
-      EventPattern: 
-        source:
-        - aws.macie
-        detail-type:
-        - "Macie Alert"
-      State: "ENABLED"
-      Targets: 
-        - 
-          Arn: 
-            Ref: "DetectionSNSTopic"
-          Id: "DetectionSNSTopic-Macie"
-          InputTransformer:
-            InputTemplate: '"Amazon Macie Alert: <macdesc>"'
-            InputPathsMap:
-              macdesc: "$.detail.summary.Description"
+#  MacieAlertEvent: 
+#    Type: "AWS::Events::Rule"
+#    Properties: 
+#      Name: 
+#        Fn::Join:
+#          - '-'
+#          - [!Ref ResourceName, 'macie-alert']
+#      Description: "All Macie Alerts"
+#      EventPattern: 
+#        source:
+#        - aws.macie
+#        detail-type:
+#        - "Macie Alert"
+#      State: "ENABLED"
+#      Targets: 
+#        - 
+#          Arn: 
+#            Ref: "DetectionSNSTopic"
+#          Id: "DetectionSNSTopic-Macie"
+#          InputTransformer:
+#            InputTemplate: '"Amazon Macie Alert: <macdesc>"'
+#            InputPathsMap:
+#              macdesc: "$.detail.summary.Description"
 
 
   ### Configuration Lambda - Inspector

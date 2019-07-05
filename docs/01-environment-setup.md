@@ -97,7 +97,7 @@ The next step is to enable Amazon GuardDuty, which will continuously monitor you
 
 GuardDuty is now enabled and continuously monitoring your CloudTrail logs, VPC flow logs, and DNS Query logs for threats in your environment.
 
-## Enable Amazon Macie
+<!-- ## Enable Amazon Macie
 
 Since you plan on storing sensitive data in S3, let’s quickly enable Amazon Macie.  Macie is a security service that will continuously monitor data access activity for anomalies and generate alerts when it detects risk of unauthorized access or inadvertent data leaks.
 
@@ -126,6 +126,7 @@ Macie is also used for automatically discovering and classifying sensitive data.
 6. Finally click **Done**. Macie is now enabled and has begun to discover, classify and protect your data.
 
 ## Enable AWS Security Hub
+-->
 
 Now that all of your detective controls have been configured you need to enable <a href="https://aws.amazon.com/security-hub/" target="_blank">AWS Security Hub</a>, which will provide you with a comprehensive view of the security and compliance of your AWS environment.
 

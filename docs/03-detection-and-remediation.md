@@ -299,7 +299,7 @@ Here is a truncated view of the policy from the IAM role attached to the comprom
 }
 ```
 
-**Investigate any S3 related findings (AWS Security Hub)**
+<!-- **Investigate any S3 related findings (AWS Security Hub)**
 
 There are many ways to approach this next step. We are going to start with a Security Hub insight that may be helpful in situations like this. This is not the only way you could approach this but it can definitely save time initially as you investigate the full repercussions of an attack.
 
@@ -346,7 +346,8 @@ In the previous step we determined that the S3 bucket that starts with **threat-
 8. Set the encryption to AWS-KMS. Select the **aws/s3** key. Finally click **Save**.
 
     !!! info "What impact does enabling default encryption have on existing objects in the bucket?"
- 
+-->
+
 Congratulations! You have successfully remediated the incident and further hardened your environment. This is obviously a simulation and we can not cover every aspect of the response function in the short time allotted but hopefully this gave you an idea of the capabilities available on AWS to detect, investigate and respond to threats and attacks. 
 
 ---

@@ -37,10 +37,10 @@ In **Module 3** you investigated the attack, remediated the damage, and setup so
 	
 	!!! info "Successful login is confirmed in CloudWatch Logs (/threat-detection-wksp/var/log/secure)."
 
-5. The EC2 Instance that is created in the **Module** 2 CloudFormation template disabled default encryption on the **Data** bucket.  In addition the CloudFormation template made the **Data** bucket public.  This is used for the Macie part of the investigation in Module 3. We pretend that the attacker made the bucket public and removed the default encryption from the bucket.
+<!-- 5. The EC2 Instance that is created in the **Module** 2 CloudFormation template disabled default encryption on the **Data** bucket.  In addition the CloudFormation template made the **Data** bucket public.  This is used for the Macie part of the investigation in Module 3. We pretend that the attacker made the bucket public and removed the default encryption from the bucket.
 	
 	!!! info "**Macie Alert**: S3 Bucket IAM policy grants global read rights."
-
+-->
 6.  The Compromised Instance also has a cron job that continuously pings the Malicious Host to generate a GuardDuty finding based off the custom threat list.
 	
 	!!! info "**GuardDuty Finding**: UnauthorizedAccess:EC2/MaliciousIPCaller.Custom"
@@ -51,7 +51,7 @@ In **Module 3** you investigated the attack, remediated the damage, and setup so
 
 8. A number of CloudWatch Events Rules are evoked by the GuardDuty findings and then these trigger various services.
 	1.	**CloudWatch Event Rule**: The generic GuardDuty finding invokes a CloudWatch Event rule which triggers SNS to send an email.
-	2.	**CloudWatch Event Rule**: The generic Macie alert invokes a CloudWatch Event rule which triggers SNS to send an email.
+	<!-- 2.	**CloudWatch Event Rule**: The generic Macie alert invokes a CloudWatch Event rule which triggers SNS to send an email. -->
 	3.	**CloudWatch Event Rule**: The SSH brute force attack finding invokes a CloudWatch Event rule which triggers a Lambda function to block the attacker IP address of the attacker via a NACL as well as a Lambda function that runs an Inspector scan on the EC2 instance.
 	4. **CloudWatch Event Rule**: The Unauthorized Access Custom MaliciousIP finding invokes a CloudWatch Event rule which triggers a Lambda function to block the IP address of the attacker via a NACL.
 
