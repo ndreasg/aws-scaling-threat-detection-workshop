@@ -264,9 +264,9 @@ The active session from the attacker was automatically stopped by an update to t
 6. Click **Save**
 
 
-## Part 3 - Compromised S3 bucket
+<!-- ## Part 3 - Compromised S3 bucket
 
-### Detect and investigate 
+### Detect 
 
 Now that we know the SSH brute force attack was successful and we disabled the IAM credentials that were stolen, we need to determine if anything else occurred. One step we could take here is to examine the IAM policy attached the IAM role that generated the temp credentials. We notice in the policy that there are permissions relating to the Amazon S3 service so that is something to keep in mind as you continue the investigation. 
 
