@@ -13,7 +13,7 @@ Parameters:
 
   # KeyName:
   #   Type: AWS::EC2::KeyPair::KeyName
-  #   ConstraintDescription: Must be the name of an existing EC2 KeyPair.
+  #   ConstraintDescription: Must be the name of an existing EC2 KeyPair. TEST
   #   Description: 'Name of an existing EC2 Key Pair.'
 
 Metadata: 
