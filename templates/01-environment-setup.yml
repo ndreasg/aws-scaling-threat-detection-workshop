@@ -259,7 +259,7 @@ Resources:
 #            Ref: "DetectionSNSTopic"
 #          Id: "DetectionSNSTopic-Macie"
 #          InputTransformer:
-#            InputTemplate: '"Amazon Macie Alert: <macdesc>"'
+#            InputTemplate: '"Amazon Macies Alert: <macdesc>"'
 #            InputPathsMap:
 #              macdesc: "$.detail.summary.Description"
 
