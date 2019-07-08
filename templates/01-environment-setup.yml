@@ -264,7 +264,7 @@ Resources:
 #              macdesc: "$.detail.summary.Description"
 
 
-  ### Configuration Lambda - Inspector
+  ### Configuration Lambda - Inspector2
   LambdaAdditionalConfig: 
     Type: "AWS::Lambda::Function"
     Properties: 

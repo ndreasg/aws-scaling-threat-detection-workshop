@@ -29,7 +29,7 @@ Metadata:
       ResourceName:
         default: "Resource Prefix"
       # KeyName: 
-      #  default: "Existing Key Pair"
+      #  default: "Existing Key Pair2"
 
 Mappings:
   
