@@ -131,7 +131,7 @@ Now that all of your detective controls have been configured you need to enable 
 
 1.	Go to the <a href="https://us-west-2.console.aws.amazon.com/securityhub/home?region=us-west-2#" target="_blank">AWS Security Hub</a> console.
 
-2.	Click the **Enable Security Hub** button.
+2.	Click the **Go to Security Hub** button.
 
 3.	On the next screen click the **Enable AWS Security Hub** button.
 
