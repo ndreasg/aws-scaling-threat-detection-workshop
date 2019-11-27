@@ -31,7 +31,8 @@ Outline for 03-detection-and-remediation.md
 
 1. Compromised AWS IAM credentials ~ 25-40 mins
 2. Compromised EC2 instance ~ 25-40 mins
-3. Compromised S3 bucket  ~ 15-25 mins
+<!-- 3. Compromised S3 bucket  ~ 15-25 mins
+-->
 
 
 # Module 3: Detect, Investigate & Respond
@@ -264,9 +265,9 @@ The active session from the attacker was automatically stopped by an update to t
 6. Click **Save**
 
 
-## Part 3 - Compromised S3 bucket
+<!-- ## Part 3 - Compromised S3 bucket
 
-### Detect and investigate 
+### Detect 
 
 Now that we know the SSH brute force attack was successful and we disabled the IAM credentials that were stolen, we need to determine if anything else occurred. One step we could take here is to examine the IAM policy attached the IAM role that generated the temp credentials. We notice in the policy that there are permissions relating to the Amazon S3 service so that is something to keep in mind as you continue the investigation. 
 
@@ -299,7 +300,7 @@ Here is a truncated view of the policy from the IAM role attached to the comprom
 }
 ```
 
-**Investigate any S3 related findings (AWS Security Hub)**
+<!-- **Investigate any S3 related findings (AWS Security Hub)**
 
 There are many ways to approach this next step. We are going to start with a Security Hub insight that may be helpful in situations like this. This is not the only way you could approach this but it can definitely save time initially as you investigate the full repercussions of an attack.
 
@@ -346,7 +347,8 @@ In the previous step we determined that the S3 bucket that starts with **threat-
 8. Set the encryption to AWS-KMS. Select the **aws/s3** key. Finally click **Save**.
 
     !!! info "What impact does enabling default encryption have on existing objects in the bucket?"
- 
+-->
+
 Congratulations! You have successfully remediated the incident and further hardened your environment. This is obviously a simulation and we can not cover every aspect of the response function in the short time allotted but hopefully this gave you an idea of the capabilities available on AWS to detect, investigate and respond to threats and attacks. 
 
 ---
