@@ -4,10 +4,20 @@ In this first module you will be configuring detective and responsive controls f
 
 **Agenda**
  
-1. Run the intial CloudFormation Template – 5 min
+1. Run the initial CloudFormation Template – 5 min
 2. Confirm SNS subscription in your email - 1 min
 3. Create a CloudWatch Rule - 5 min
 4. Manually Enable detective controls - 5 min
+
+## Enable Amazon GuardDuty
+
+Our first step is to enable Amazon GuardDuty, which will continuously monitor your environment for malicious or unauthorized behavior.
+
+1.	Go to the <a href="https://us-west-2.console.aws.amazon.com/guardduty/home?region=us-west-2" target="_blank">Amazon GuardDuty</a> console (us-west-2).
+2.	If the **Get Started** button is available, click it. If not GuardDuty is enabled and skip step three.
+3.	On the next screen click the **Enable GuardDuty** button.
+
+GuardDuty is now enabled and continuously monitoring your CloudTrail logs, VPC flow logs, and DNS Query logs for threats in your environment.
 
 ## Deploy the AWS CloudFormation template
 
@@ -85,17 +95,6 @@ Click **Configure details** at the bottom.
 
     !!! question "What will the function do when invoked?"
 
-## Enable Amazon GuardDuty
-
-The next step is to enable Amazon GuardDuty, which will continuously monitor your environment for malicious or unauthorized behavior.
-
-1.	Go to the <a href="https://us-west-2.console.aws.amazon.com/guardduty/home?region=us-west-2" target="_blank">Amazon GuardDuty</a> console (us-west-2).
-
-2.	Click the **Get Started** button.
-
-3.	On the next screen click the **Enable GuardDuty** button.
-
-GuardDuty is now enabled and continuously monitoring your CloudTrail logs, VPC flow logs, and DNS Query logs for threats in your environment.
 
 <!-- ## Enable Amazon Macie
 
@@ -131,10 +130,10 @@ Macie is also used for automatically discovering and classifying sensitive data.
 Now that all of your detective controls have been configured you need to enable <a href="https://aws.amazon.com/security-hub/" target="_blank">AWS Security Hub</a>, which will provide you with a comprehensive view of the security and compliance of your AWS environment.
 
 1.	Go to the <a href="https://us-west-2.console.aws.amazon.com/securityhub/home?region=us-west-2#" target="_blank">AWS Security Hub</a> console.
-
-2.	Click the **Enable Security Hub** button.
-
+2. If the **Get Started** button is available, click it. If not Security Hub is enabled and skip step three.
 3.	On the next screen click the **Enable AWS Security Hub** button.
+
+!!! note "If you see red text ```AWS Config is not enabled on some accounts``` in the Security Hub Console, you can safely ignore for this workshop."
 
 AWS Security Hub is now enabled and will begin collecting and aggregating findings from the security services we have enabled so far.
 

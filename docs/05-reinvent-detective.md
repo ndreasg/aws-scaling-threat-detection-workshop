@@ -17,16 +17,17 @@ In same browser were you are logged in, go this URL:
 
 <nobr><https://signin.aws.amazon.com/switchrole?roleName=WorkshopReadOnly&account=549639478491></nobr>
 
-![SwitchRole](./images/05-switchrolelogin.png)
-
 !!! note "Attention: Multiple Roles available"
 	 You will need to change ```WorkshopReadOnly``` to one of the following
 	 ```WorkshopReadOnly-1```
 	 ```WorkshopReadOnly-2```
 	 ```WorkshopReadOnly-3```
+	 ```WorkshopReadOnly-4```
 	 You may have to try more than one role.
 
-After you make the changes to ```Role``` Click ```Switch Role``` to login to that role in the Demo Account. You may have to try more than one role.
+![SwitchRole](./images/05-switchrolelogin.png)
+
+After you make the changes to the ```Role``` field, click ```Switch Role``` to login to that role in the Demo Account. You may have to try more than one role.
 
 ### Change Region
 Amazon detective is only available in 5 regions at launch. For this workshop you will be using the ```US East (N. Virginia)us-east-1``` region, please select this region from the dropdown in the upper right hand of your AWS Console.
@@ -117,7 +118,7 @@ By selecting one of the circles on the map or selecting the ```Details``` link o
 
 ![Text](./images/05-14-Geolocations-APICalls.png)
 
-This a great time to checkout some of the API calls in this timeframe that are associated with these IP addresses.  Observe the impacted resources/services but not we don’t need them to write them down for this workshop.
+This is a great time to checkout some of the API calls in this timeframe that are associated with these IP addresses.  Observe the impacted resources/services but not we don’t need them to write them down for this workshop.
 
 Next, we are going to take a look at ```Newly observed user agents``` panel down at the very bottom of this AWS Role page.
 
