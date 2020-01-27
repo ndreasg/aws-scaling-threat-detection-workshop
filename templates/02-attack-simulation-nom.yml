@@ -721,9 +721,34 @@ Resources:
             aws s3 cp /tmp/$list s3://${BucketThreatList}/$list
             sleep 5
 
+            # Create GuardDuty Threat List (Non-Retry)
+            #id=`aws guardduty list-detectors --query 'DetectorIds[0]' --output text`
+            #aws guardduty create-threat-intel-set --activate --detector-id $id --format TXT --location https://s3.amazonaws.com/${BucketThreatList}/$list --name Custom-Threat-List-$uuid
+            
             # Create GuardDuty Threat List
+            gd_threat_list_success=FALSE
+            gd_threat_list_tries=0
             id=`aws guardduty list-detectors --query 'DetectorIds[0]' --output text`
+            while [ $gd_threat_list_success =  FALSE ]
+            do
             aws guardduty create-threat-intel-set --activate --detector-id $id --format TXT --location https://s3.amazonaws.com/${BucketThreatList}/$list --name Custom-Threat-List-$uuid
+            if [ $? -eq 0 ]
+            then gd_threat_list_success=TRUE
+            echo 'GuardDuty threat list successfully uploaded'
+            else
+            echo 'GuardDuty threat list upload unsuccessful'
+            echo 'waiting 10 seconds before trying again'
+            if [ $gd_threat_list_tries -lt 20 ]
+            then
+            let gd_threat_list_tries++
+            echo $gd_threat_list_tries
+            sleep 10
+            else
+            gd_threat_list_success=ABANDON
+            echo 'Not able to upload threat list after many attempts.  Abandoning'
+            fi
+            fi
+            done
 
 
             # Set Ping cron Job
