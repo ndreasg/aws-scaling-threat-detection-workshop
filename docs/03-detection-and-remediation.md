@@ -66,16 +66,20 @@ Now that you have a resource identifier to pivot from you can use Amazon GuardDu
 
 	!!! question "What principal are these credentials associated with?"
 
-4. Examining **User type** under **Resource affected** you can see that the access key referenced in this finding is from an IAM assumed role. 
-5. Examining **Principal ID** under **Resource affected** you will find two strings separated by a colon. The first is the <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-unique-ids" target="_blank">unique ID</a> for the IAM role and the second is the EC2 instance ID. 
+4. Examining **Iam instance profile** under **Resource affected** you can see that the access key referenced in this finding is from an IAM assumed role. 
+
+5. Examining **Iam instance profile** under **Resource affected** you will find two strings separated by a new line. The first is the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html" target="_blank">Amazon Resource Name (ARN)</a> of the IAM role that was compromised. The second line will be the  <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-unique-ids" target="_blank">unique ID</a> for the IAM role. 
 
 !!! info "You may have to resize your screen by dragging the middle vertical scrollbar to the left to see the entire text"
 
-6. The **Principal ID** contains a unique ID for the entity making the API request, and when the request is made using temporary security credentials (which is what happens for an assume role call) it also includes a session name. In this case the session name is the EC2 instance ID since the assume role call was done using an IAM role for EC2.
+6. The **Iam instance profile** contains a unique ID for the entity making the API request, and when the request is made using temporary security credentials (which is what happens for an assume role call) it also includes a session name. In this case the session name is the EC2 instance ID since the assume role call was done using an IAM role for EC2.
 
-7. Copy the full **Principal Id** which contains both the unique ID of the role and the session name: **"principalId": "`< unique ID >:< session name >`"**
+7. Copy the full **Iam instance profile** which contains both the unique ID of the role and the IAM Role ARN: 
+**"Iam instance profile": "
+`< ARN>`
+ `<unique ID >`"**
 
-8. Examine the **User Name** under **Resource affected** and copy it down. This corresponds to the name of the IAM role involved since the temp creds used to make the API call came from EC2 instance with an IAM role attached. 
+8. Examine the **Iam instance profile** under **Resource affected** and copy it down. This corresponds to the name of the IAM role involved since the temp creds used to make the API call came from EC2 instance with an IAM role attached. 
 
 <!--
 
