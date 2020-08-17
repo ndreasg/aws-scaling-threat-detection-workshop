@@ -130,7 +130,9 @@ Macie is also used for automatically discovering and classifying sensitive data.
 Now that all of your detective controls have been configured you need to enable <a href="https://aws.amazon.com/security-hub/" target="_blank">AWS Security Hub</a>, which will provide you with a comprehensive view of the security and compliance of your AWS environment.
 
 1.	Go to the <a href="https://us-west-2.console.aws.amazon.com/securityhub/home?region=us-west-2#" target="_blank">AWS Security Hub</a> console.
-2. If the **Get Started** button is available, click it. If not Security Hub is enabled and skip step three.
+
+2.	Click the **Go to Security Hub** button.
+
 3.	On the next screen click the **Enable AWS Security Hub** button.
 
 !!! note "If you see red text ```AWS Config is not enabled on some accounts``` in the Security Hub Console, you can safely ignore for this workshop."
