@@ -9,8 +9,8 @@ site_author: 'aws-security-workshops@amazon.com'
 site_url: 'https://automating-threat-detection.awssecworkshops.com/'
 
 # Repository
-repo_name: 'awsrossw/aws-scaling-threat-detection-workshop'
-repo_url: 'https://github.com/awsrossw/aws-scaling-threat-detection-workshop/tree/EventEngine'
+repo_name: 'aws-samples/aws-scaling-threat-detection-workshop'
+repo_url: 'https://github.com/aws-samples/aws-scaling-threat-detection-workshop'
 
 # Copyright
 copyright: '&copy; 2019, Amazon Web Services, Inc. or its affiliates. All rights reserved.'
