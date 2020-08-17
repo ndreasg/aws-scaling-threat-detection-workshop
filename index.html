@@ -11,7 +11,7 @@
         <meta name="description" content="This hands-on workshop is where you will learn about a number of AWS services involved with threat detection and response as we walk through real-world threat scenarios. Learn about the threat detection capabilities of Amazon GuardDuty, Amazon Macie and AWS Security Hub and the available response options. For each hands-on scenario, we review methods to detect and respond to threats using the following services: AWS CloudTrail, Amazon VPC flow logs, Amazon CloudWatch Events, Amazon Macie, AWS Lambda, Amazon Inspector, Amazon GuardDuty and Amazon Security Hub.">
       
       
-        <link rel="canonical" href="https://scaling-threat-detection.awssecworkshops.com/">
+        <link rel="canonical" href="https://automating-threat-detection.awssecworkshops.com/">
       
       
         <meta name="author" content="aws-security-workshops@amazon.com">
@@ -180,7 +180,7 @@
           <div class="md-flex__cell md-flex__cell--shrink">
             <div class="md-header-nav__source">
               
-<a href="https://github.com/aws-samples/aws-scaling-threat-detection-workshop/branch/master/" title="Go to repository" class="md-source">
+<a href="https://github.com/aws-samples/aws-scaling-threat-detection-workshop/" title="Go to repository" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
@@ -234,20 +234,20 @@
 
   <!-- Site title -->
   <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <a href="https://scaling-threat-detection.awssecworkshops.com/"
+    <a href="https://automating-threat-detection.awssecworkshops.com/"
         title="Scaling threat detection and response in AWS" class="md-nav__button md-logo">
       
         <img src="assets/images/aws_smile_logo.png" width="48" height="48" />
       
     </a>
-    
+    Scaling threat detection
   </label>
 
   <!-- Repository containing source -->
   
     <div class="md-nav__source">
       
-<a href="https://github.com/aws-samples/aws-scaling-threat-detection-workshop/branch/master/" title="Go to repository" class="md-source">
+<a href="https://github.com/aws-samples/aws-scaling-threat-detection-workshop/" title="Go to repository" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
@@ -301,13 +301,6 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    
-  </a>
-  
-</li>
       
         <li class="md-nav__item">
   <a href="#scenario" class="md-nav__link">
@@ -449,13 +442,6 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#scenario" class="md-nav__link">
     Scenario
   </a>
@@ -502,7 +488,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/aws-samples/aws-scaling-threat-detection-workshop/branch/master/edit/master/docs/index.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/aws-samples/aws-scaling-threat-detection-workshop/edit/master/docs/index.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
@@ -519,11 +505,10 @@
 <li><strong><a href="https://d0.awsstatic.com/whitepapers/AWS_CAF_Security_Perspective.pdf" target="_blank">CAF Components</a></strong>: Detective, Responsive</li>
 <li><strong><a href="https://awssecworkshops.com/getting-started/" target="_blank">Prerequisites</a href></strong>: AWS Account, Admin IAM User</li>
 </ul>
-<h3 id="_1"></h3>
 <h2 id="scenario">Scenario</h2>
 <p>Your company is new to the cloud and has recently performed a lift-and-shift of your infrastructure for piloting purposes.  You are a systems administrator and have been tasked with security monitoring within your AWS environment.  As part of that maintenance you are also responsible for responding to any security event in your environment.</p>
 <h2 id="architecture">Architecture</h2>
-<p>For this Workshop you will have a simple setup with a single instance setup in the us-west-2 region. As this was a “lift-and-shift” migration for piloting, you have yet to build redundancy into your application, so you have a single public-facing web server that is accessed through an internet gateway and retrieves static content from an S3 bucket.</p>
+<p>For this Workshop you will have a single instance setup in the us-west-2 region. As this was a “lift-and-shift” migration for piloting, you have yet to build redundancy into your application, so you have a single public-facing web server. The web server has access to the Internet Gateway through an Elastic Network Interface. Customers access your web server through a DNS entry pointing to the Elastic Network Interface. You store static content in an S3 bucket and use the VPC S3 Endpoint Gateway for access from the web server.</p>
 <p><img alt="Architecture" src="images/diagram-basic-arch-v2.png" title="Workload Architecture" /></p>
 <h2 id="presentation-deck">Presentation deck</h2>
 <p><a href="threat-detect-workshop-presentation.pdf">Workshop Presentation Deck</a></p>

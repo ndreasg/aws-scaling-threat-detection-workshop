@@ -11,7 +11,7 @@
         <meta name="description" content="This hands-on workshop is where you will learn about a number of AWS services involved with threat detection and response as we walk through real-world threat scenarios. Learn about the threat detection capabilities of Amazon GuardDuty, Amazon Macie and AWS Security Hub and the available response options. For each hands-on scenario, we review methods to detect and respond to threats using the following services: AWS CloudTrail, Amazon VPC flow logs, Amazon CloudWatch Events, Amazon Macie, AWS Lambda, Amazon Inspector, Amazon GuardDuty and Amazon Security Hub.">
       
       
-        <link rel="canonical" href="https://scaling-threat-detection.awssecworkshops.com/03-detection-and-remediation/">
+        <link rel="canonical" href="https://automating-threat-detection.awssecworkshops.com/03-detection-and-remediation/">
       
       
         <meta name="author" content="aws-security-workshops@amazon.com">
@@ -180,7 +180,7 @@
           <div class="md-flex__cell md-flex__cell--shrink">
             <div class="md-header-nav__source">
               
-<a href="https://github.com/aws-samples/aws-scaling-threat-detection-workshop/branch/master/" title="Go to repository" class="md-source">
+<a href="https://github.com/aws-samples/aws-scaling-threat-detection-workshop/" title="Go to repository" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
@@ -234,20 +234,20 @@
 
   <!-- Site title -->
   <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <a href="https://scaling-threat-detection.awssecworkshops.com/"
+    <a href="https://automating-threat-detection.awssecworkshops.com/"
         title="Scaling threat detection and response in AWS" class="md-nav__button md-logo">
       
         <img src="../assets/images/aws_smile_logo.png" width="48" height="48" />
       
     </a>
-    
+    Scaling threat detection
   </label>
 
   <!-- Repository containing source -->
   
     <div class="md-nav__source">
       
-<a href="https://github.com/aws-samples/aws-scaling-threat-detection-workshop/branch/master/" title="Go to repository" class="md-source">
+<a href="https://github.com/aws-samples/aws-scaling-threat-detection-workshop/" title="Go to repository" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
@@ -382,7 +382,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/aws-samples/aws-scaling-threat-detection-workshop/branch/master/edit/master/docs/03-detection-and-remediation.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/aws-samples/aws-scaling-threat-detection-workshop/edit/master/docs/03-detection-and-remediation.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
@@ -460,22 +460,27 @@ Outline for 03-detection-and-remediation.md
 </div>
 </li>
 <li>
-<p>Examining <strong>User type</strong> under <strong>Resource affected</strong> you can see that the access key referenced in this finding is from an IAM assumed role. </p>
+<p>Examining <strong>Iam instance profile</strong> under <strong>Resource affected</strong> you can see that the access key referenced in this finding is from an IAM assumed role. </p>
 </li>
-<li>Examining <strong>Principal ID</strong> under <strong>Resource affected</strong> you will find two strings separated by a colon. The first is the <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-unique-ids" target="_blank">unique ID</a> for the IAM role and the second is the EC2 instance ID. </li>
+<li>
+<p>Examining <strong>Iam instance profile</strong> under <strong>Resource affected</strong> you will find two strings separated by a new line. The first is the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html" target="_blank">Amazon Resource Name (ARN)</a> of the IAM role that was compromised. The second line will be the  <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-unique-ids" target="_blank">unique ID</a> for the IAM role. </p>
+</li>
 </ol>
 <div class="admonition info">
 <p class="admonition-title">You may have to resize your screen by dragging the middle vertical scrollbar to the left to see the entire text</p>
 </div>
 <ol>
 <li>
-<p>The <strong>Principal ID</strong> contains a unique ID for the entity making the API request, and when the request is made using temporary security credentials (which is what happens for an assume role call) it also includes a session name. In this case the session name is the EC2 instance ID since the assume role call was done using an IAM role for EC2.</p>
+<p>The <strong>Iam instance profile</strong> contains a unique ID for the entity making the API request, and when the request is made using temporary security credentials (which is what happens for an assume role call) it also includes a session name. In this case the session name is the EC2 instance ID since the assume role call was done using an IAM role for EC2.</p>
 </li>
 <li>
-<p>Copy the full <strong>Principal Id</strong> which contains both the unique ID of the role and the session name: <strong>"principalId": "<code>&lt; unique ID &gt;:&lt; session name &gt;</code>"</strong></p>
+<p>Copy the full <strong>Iam instance profile</strong> which contains both the unique ID of the role and the IAM Role ARN: 
+<strong>"Iam instance profile": "
+<code>&lt; ARN&gt;</code>
+ <code>&lt;unique ID &gt;</code>"</strong></p>
 </li>
 <li>
-<p>Examine the <strong>User Name</strong> under <strong>Resource affected</strong> and copy it down. This corresponds to the name of the IAM role involved since the temp creds used to make the API call came from EC2 instance with an IAM role attached. </p>
+<p>Examine the <strong>Iam instance profile</strong> under <strong>Resource affected</strong> and copy it down. This corresponds to the name of the IAM role involved since the temp creds used to make the API call came from EC2 instance with an IAM role attached. </p>
 </li>
 </ol>
 <!--
