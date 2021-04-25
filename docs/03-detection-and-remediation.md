@@ -48,9 +48,12 @@ By now you’ve received email alerts from the security services you enabled. No
 
 1. Sort through your email alerts and identity an alert related to an AWS IAM principal
 
-!!! info "Amazon GuardDuty Finding: UnauthorizedAccess:IAMUser/MaliciousIPCaller.Custom"
-	
-2. Copy the `<Access Key ID>` from the e-mail alert. 
+    !!! info "Amazon GuardDuty Finding: UnauthorizedAccess:IAMUser/MaliciousIPCaller.Custom"
+
+2. Copy the `<Access Key ID>` from the e-mail alert.
+
+
+ 
 
 **Explore findings related to the access key (Amazon GuardDuty)**
 
@@ -60,24 +63,41 @@ Now that you have a resource identifier to pivot from you can use Amazon GuardDu
 
 2. Click in the **Add filter criteria** box, select **Access Key ID**, and then paste in the `<Access Key ID>` you copied from the e-mail, then select **Apply**.
 
-    !!! question "What findings do you see related to this Access Key ID?"
-	
-3. Click on one of the findings to see the details.
+    !!! question "What findings do you see related to this Access Key ID? and what do they mean ?"
 
-	!!! question "What principal are these credentials associated with?"
+3. Click on one of the **UnauthorizedAccess:IAMUser/MaliciousIPCaller.Custom** findings to see the details. This finding indicates a API call was invoked from an IP on a custom malicous IP caller list. 
 
-4. Examining **Iam instance profile** under **Resource affected** you can see that the access key referenced in this finding is from an IAM assumed role. 
+    !!! question "Looking at the finding details, can you identify what API calls were made?"
 
-5. Examining **Iam instance profile** under **Resource affected** you will find two strings separated by a new line. The first is the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html" target="_blank">Amazon Resource Name (ARN)</a> of the IAM role that was compromised. The second line will be the  <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-unique-ids" target="_blank">unique ID</a> for the IAM role. 
+4. Under **Resources affected** section in the finding details, you will be able to identify the instance ID of the EC2 instance to whom these credentials belonged to. It starts with ** ‘i’, such as i-08fa26ffb15a66f5a**. Copy the instance ID as we will need it for later investigations to identify how credentails were compromised in the first place.
 
-!!! info "You may have to resize your screen by dragging the middle vertical scrollbar to the left to see the entire text"
+    !!! info "The credentials belong to the role that is assigned to the EC2 instance"
 
-6. The **Iam instance profile** contains a unique ID for the entity making the API request, and when the request is made using temporary security credentials (which is what happens for an assume role call) it also includes a session name. In this case the session name is the EC2 instance ID since the assume role call was done using an IAM role for EC2.
+5. Now, lets identify which role the access key belongs to. Examine the finding JSON by clicking on the Finding ID hyperlink. 
+
+    ![03-findingID-link](./images/03-findingID-hyperlink.png)
+
+    Scroll untill you find the **accessKeyDetails** section you can see that the access key referenced in this finding is from an IAM assumed role, which means the Access Key credentials used to invoke these API calls belong to a IAM Role. Copy the name of the role, we will need it for remediation purposes. 
+
+    ![03-AccessKeyJSON](./images/03-AccessKeyJSON.png)
+
+    !!! question "Looking through other GuardDuty findings with a similar investigation mind set, what other infomration would you want to glean?"
+
+
+<!--
+6. Examining **IAM instance profile** under **Resource affected** you will find two strings separated by a new line. The first is the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html" target="_blank">Amazon Resource Name (ARN)</a> of the IAM role that was compromised. The second line will be the  <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-unique-ids" target="_blank">unique ID</a> for the IAM role. <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2_instance-profiles.html" target="_blank">Instance Profile</a> allows you to pass a role to an EC2 instance.   
+
+    !!! info "You may have to resize your screen by dragging the middle vertical scrollbar to the left to see the entire text"  
+
+    The unique ID in **IAM instance profile** identifies the entity making the API request, and when the request is made using temporary security credentials (which is what happens for an assume role call) it also includes a session name. In this case the session name is the EC2 instance ID since the assume role call was done using an IAM role for EC2.
+
+
 
 7. Copy the full **Iam instance profile** which contains both the unique ID of the role and the IAM Role ARN: 
 **"Iam instance profile": "
 `< ARN>`
  `<unique ID >`"**
+
 
 8. Examine the **Iam instance profile** under **Resource affected** and copy it down. This corresponds to the name of the IAM role involved since the temp creds used to make the API call came from EC2 instance with an IAM role attached. 
 
@@ -124,7 +144,7 @@ Now that you have identified that a temporary security credential from an IAM ro
 
 1.  Browse to the <a href="https://console.aws.amazon.com/iam/home?region=us-west-2" target="_blank">AWS IAM</a> console.
 
-2.  Click **Roles** and find the role you identified in the previous section using the **User Name** you copied down earlier (this is the role attached to the compromised instance), and click on that **Role Name**.
+2.  Click **Roles** and find the role name you identified in the previous section using the **User Name** you copied down earlier (this is the role attached to the compromised instance), and click on that **Role Name**.
 
 3.  Click on the **Revoke sessions** tab.
 
@@ -136,17 +156,17 @@ Now that you have identified that a temporary security credential from an IAM ro
 
 **Restart the EC2 instance to rotate the access keys (EC2)**
 
-All active credentials for the compromised IAM role have been invalidated.  This means the attacker can no longer use those access keys, but it also means that any applications that use this role can't as well.  You knew this going in but decided it was necessary due to the high risk of a compromised IAM access key. In order to ensure the availability of your application you need to refresh the access keys on the instance by stopping and starting the instance. *A simple reboot will not change the keys.* If you waited the temporary security credential on the instance would be refreshed but this procedure will speed things up. Since you are using AWS Systems Manager for administration on your EC2 instances you can use it to query the metadata to validate that the access keys were rotated after the instance restart.
+All active credentials for the compromised IAM role have been invalidated.  This means the attacker can no longer use those access keys, but it also means that any applications that use this role can't as well.  You knew this going in but decided it was necessary due to the high risk of a compromised IAM access key. In order to ensure the availability of your application you need to refresh the access keys on the instance by stopping and starting the instance. *A simple reboot will not change the keys.* If you waited, the temporary security credential on the instance would be refreshed but this procedure will speed things up. Since you are using AWS Systems Manager for administration on your EC2 instances you can use it to query the metadata to validate that the access keys were rotated after the instance restart.
 
 6. In the <a href="https://us-west-2.console.aws.amazon.com/ec2/v2/home?region=us-west-2#Instances:sort=instanceId" target="_blank">EC2 console</a> **Stop** the Instance named **threat-detection-wksp: Compromised Instance**.
 
-Check the box next to the instance, select the **Actions menu**, **Instance State**, **Stop**, confirm by pressing **Yes**, **Stop**
+    Check the box next to the instance, select the **Actions menu**, **Instance State**, **Stop**, confirm by pressing **Yes**, **Stop**
 
 7. Wait for the Instance State to say **stopped** under **Instance State** (you may need to refresh the EC2 console) and then **Start** the instance.
 
     !!! info "You will need to wait until all Status Checks have passed before continuing."
 
-**Verify the access keys have been rotated (Systems Manager)**
+    **Verify the access keys have been rotated (Systems Manager)**
 
 8.  Go to <a href="https://us-west-2.console.aws.amazon.com/systems-manager/session-manager?region=us-west-2" target="_blank">AWS Systems Manager</a> console and click on **Session Manager** on the left navigation and then click **Start Session**.  
 
@@ -158,9 +178,11 @@ Check the box next to the instance, select the **Actions menu**, **Instance Stat
 	
 ``` bash
 curl http://169.254.169.254/latest/meta-data/iam/security-credentials/threat-detection-wksp-compromised-ec2
-```
+```  
 
 !!! question "Why would this scenario be a good use case for auto-scaling groups?" 
+
+!!! info "You can also connect to the EC2 instance with Sessions Manager using the **Connect** button on the top right of EC2 console." 
 
 At this point you've successfully revoked all the active sessions from AWS IAM role and rotated the temporary security credentials on the EC2 instance.
 
@@ -182,11 +204,19 @@ When investigating the compromised IAM credential you discovered that it was fro
 2. The link should take you to the **Findings** section (if not, click on **Findings** in the navigation on the left).
 	* Add a filter by clicking in the **Add filter** box and scrolling down to **Product Name**, and paste in the word `GuardDuty`.
 
-	* Use your browser's find function **Control-F** and paste in the `<Instance ID>` you copied earlier (from the principal ID you gathered in the GuardDuty finding). 
+	* Use your browser's find function **Control-F** and paste in the `<Instance ID>` you copied earlier. 
 
-    * Now copy the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html" target="_blank">Amazon Resource Name (ARN)</a> from the **Resource ID** for the first match. The ARN will look something like this `arn:aws:ec2:us-west-2:166199753942:instance/i-0efc5172a5d7ecc6b`
+    * Click on one of the findings associated with this instance ID, a new panel will open, expand the **Resources** section.
 
-    * Add one more filter by clicking the **Add filter** box again and selecting **Resource ID** and paste in the ARN from the previous step
+    * Now look for the ARN, it will look something like this `arn:aws:ec2:us-west-2:166199753942:instance/i-0efc5172a5d7ecc6b`
+
+    * Lets add this ARN as another filter by clicking on the magnifying glass. 
+
+        ![03-Filtering](./images/03-Filtering.png)  
+
+    
+    
+    !!! Info "Anytime you see a magnifying glass in GuardDuty or SecurityHub, you can use it as a quick way to add that attribute as a filter." 
 	
 	!!! question "What GuardDuty findings do you see related to this instance ID?"
 	
@@ -195,13 +225,13 @@ When investigating the compromised IAM credential you discovered that it was fro
 	* Add another filter by again clicking in the **Add filter** box and scrolling down to **Product Name**, and paste in the word `GuardDuty`.
 -->
 
-One of the findings should indicate that the EC2 instance is communicating with an IP address on a threat list (**disallowed IP**) which adds further evidence to the conclusion that the instance has been compromised. The other finding should indicate that a system at a particular IP address is performing an SSH brute force attack against your instance.  You now need to investigate if the SSH brute force attack was successful and if that is what allowed the attacker to gain access to the instance.
+One of the findings should indicate that the EC2 instance is communicating with an IP address on a threat list (**disallowed IP**) which adds further evidence to the conclusion that the instance has been compromised. Another finding should indicate that a system at a particular IP address is performing an SSH brute force attack against the instance you are investigating.  You now need to investigate if the SSH brute force attack was successful and if that is what allowed the attacker to gain access to the instance.
 
 **Determine if ssh password authentication is enabled on the EC2 instance (AWS Security Hub)**
 
 Automated responses to threats can do many things. For example, you could have an trigger that helps gather information about the threat that could then be used in the investigation by the security team. With that option in mind, we have a CloudWatch event rule in place that will trigger an <a href="https://aws.amazon.com/inspector/" target="_blank">Amazon Inspector</a> scan of an EC2 instance when GuardDuty detects a particular attack. We will use AWS Security Hub to view the findings from Inspector. We want to determine if the SSH configuration adheres to best practices. 
 
-1. Go to the <a href="https://us-west-2.console.aws.amazon.com/securityhub/home?region=us-west-2#/findings" target="_blank">AWS Security Hub</a> console.
+1. Open a fresh <a href="https://us-west-2.console.aws.amazon.com/securityhub/home?region=us-west-2#/findings" target="_blank">AWS Security Hub findings page</a> in the console.(We will be filtering only based on **Inspector** findings in this section.)
 2. The link should take you to the **Findings** section (if not, click on **Findings** in the navigation on the left). 
     * Add a filter by clicking in the **Add filter** box and scrolling down to **Product Name**, and paste in the word `Inspector`.
 	* Use your browser's find function **Control-F** and paste in `password authentication over SSH`
@@ -240,19 +270,33 @@ Now that we know that the instance was more susceptible to an SSH brute force at
 1.  Go to <a href="https://us-west-2.console.aws.amazon.com/cloudwatch/home?region=us-west-2#logs:" target="_blank">CloudWatch logs</a>.
 2.  Click on the log group **/threat-detection-wksp/var/log/secure**
 3.  If you have multiple log streams, filter using the Instance ID you copied earlier and click on the stream.
-4.  Within the **Filter Events** text box put the following Filter Pattern: **`[Mon, day, timestamp, ip, id, msg1= Invalid, msg2 = user, ...]`**
+4.  Within the **Filter Events** text box put the following Filter Pattern:  
+**`[Mon, day, timestamp, ip, id, msg1= Invalid, msg2 = user, ...]`**  
 
     !!! question "Do you see any failed (invalid user) attempts to log into the instance? Would that be consistent with an SSH brute force attack?"
     
-5.  Now replace the Filter with one for successful attempts: **`[Mon, day, timestamp, ip, id, msg1= Accepted, msg2 = password, ...]`**
+5.  Now replace the Filter with one for successful attempts:  
+ **`[Mon, day, timestamp, ip, id, msg1= Accepted, msg2 = password, ...]`**
 
     !!! question "Do you see any successful attempts to log into the instance? Which linux user was compromised?"
-    
+
+<!--
+    !!! info "Cloudwatch metrics and logs using Cloudwatch agent are enabled for EC2 instances in this workshop. Such logging is not enabled by default for EC2 instances."
+ -->   
 ### Respond
 
 **Modify the EC2 security group (EC2)**
 
-The active session from the attacker was automatically stopped by an update to the NACL on the subnet where the instance resides. This was done by a CloudWatch event rule trigger that is invoked based on certain GuardDuty findings. You've decided that all administration on EC2 Instances will be done through <a href="https://aws.amazon.com/systems-manager/" target="_blank">AWS Systems Manager</a> so you no longer need administrative ports open so a good next step would be to modify the security group associated with the EC2 instance to prevent the attacker or anyone else from connecting.
+The active session from the attacker was automatically stopped by an update to the NACL on the subnet where the instance resides. This was done by a CloudWatch event rule trigger that is invoked based on certain GuardDuty findings.   
+
+1. Look through the <a href="https://us-west-2.console.aws.amazon.com/events/home?region=us-west-2#/rules/" target="_blank">Cloudwatch Event Console </a> to identify how the automation was triggered. 
+2. Look through the <a href="https://us-west-2.console.aws.amazon.com/lambda/home?region=us-west-2#/functions" target="_blank">Lambda Functions </a> . 
+
+    !!!info "How would you modify these to suit your own environment." 
+
+3. Confirm NACL was updated with the IP address of the host that performed the SSH Bruteforce in the <a href="https://us-west-2.console.aws.amazon.com/vpc/home?region=us-west-2#acls:" target="_blank">NACL Console in VPC. </a> The **threat-detection-wksp-compromised** should have IP address of the malicious host denied.
+
+This attack was successfull because SSH was enabled on the instance. You've decided that all administration on EC2 Instances will be done through <a href="https://aws.amazon.com/systems-manager/" target="_blank">AWS Systems Manager</a> so you no longer need administrative ports open so a good next step would be to modify the security group associated with the EC2 instance to prevent the attacker or anyone else from connecting.
 
 1.  Go to the <a href="https://us-west-2.console.aws.amazon.com/ec2/v2/home?region=us-west-2" target="_blank">Amazon EC2</a> Console.
 
