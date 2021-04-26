@@ -1,6 +1,4 @@
 
-
-
 <!doctype html>
 <html lang="en" class="no-js">
   <head>
@@ -11,13 +9,14 @@
         <meta name="description" content="This hands-on workshop is where you will learn about a number of AWS services involved with threat detection and response as we walk through real-world threat scenarios. Learn about the threat detection capabilities of Amazon GuardDuty, Amazon Macie and AWS Security Hub and the available response options. For each hands-on scenario, we review methods to detect and respond to threats using the following services: AWS CloudTrail, Amazon VPC flow logs, Amazon CloudWatch Events, Amazon Macie, AWS Lambda, Amazon Inspector, Amazon GuardDuty and Amazon Security Hub.">
       
       
-        <link rel="canonical" href="https://automating-threat-detection.awssecworkshops.com/03-detection-and-remediation/">
-      
       
         <meta name="author" content="aws-security-workshops@amazon.com">
       
+      
+        <link rel="canonical" href="https://automating-threat-detection.awssecworkshops.com/03-detection-and-remediation/">
+      
       <link rel="shortcut icon" href="../assets/images/aws-favicon.ico">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.6">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.4">
     
     
       
@@ -25,14 +24,18 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.63b94e9e.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.15aa0b43.min.css">
       
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.75751829.min.css">
+        
       
     
     
     
       
-        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
         <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
       
@@ -48,7 +51,13 @@
   </head>
   
   
-    <body dir="ltr">
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+      
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -66,7 +75,9 @@
       
     </div>
     
-      <header class="md-header" data-md-component="header">
+      
+
+<header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
     <a href="https://automating-threat-detection.awssecworkshops.com/" title="Scaling threat detection and response in AWS" class="md-header-nav__button md-logo" aria-label="Scaling threat detection and response in AWS">
       
@@ -77,18 +88,20 @@
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
     </label>
     <div class="md-header-nav__title" data-md-component="header-title">
-      
-        <div class="md-header-nav__ellipsis">
-          <span class="md-header-nav__topic md-ellipsis">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
             Scaling threat detection and response in AWS
           </span>
-          <span class="md-header-nav__topic md-ellipsis">
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
             
               Module 3: Detect & Respond
             
           </span>
         </div>
-      
+      </div>
     </div>
     
       <label class="md-header-nav__button md-icon" for="__search">
@@ -99,7 +112,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
       <label class="md-search__icon md-icon" for="__search">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
@@ -140,8 +153,6 @@
     
     <div class="md-container" data-md-component="container">
       
-        
-      
       
         
       
@@ -149,10 +160,16 @@
         <div class="md-main__inner md-grid">
           
             
-              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
-                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+                    
+
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="https://automating-threat-detection.awssecworkshops.com/" title="Scaling threat detection and response in AWS" class="md-nav__button md-logo" aria-label="Scaling threat detection and response in AWS">
       
@@ -182,8 +199,9 @@
       
 
 
+
   <li class="md-nav__item">
-    <a href=".." title="Overview" class="md-nav__link">
+    <a href=".." class="md-nav__link">
       Overview
     </a>
   </li>
@@ -194,8 +212,9 @@
       
 
 
+
   <li class="md-nav__item">
-    <a href="../01-environment-setup/" title="Module 1: Environment Build" class="md-nav__link">
+    <a href="../01-environment-setup/" class="md-nav__link">
       Module 1: Environment Build
     </a>
   </li>
@@ -206,8 +225,9 @@
       
 
 
+
   <li class="md-nav__item">
-    <a href="../02-attack-simulation/" title="Module 2: Attack Simulation" class="md-nav__link">
+    <a href="../02-attack-simulation/" class="md-nav__link">
       Module 2: Attack Simulation
     </a>
   </li>
@@ -216,6 +236,7 @@
       
       
       
+
 
   
 
@@ -227,7 +248,7 @@
       
     
     
-    <a href="./" title="Module 3: Detect & Respond" class="md-nav__link md-nav__link--active">
+    <a href="./" class="md-nav__link md-nav__link--active">
       Module 3: Detect & Respond
     </a>
     
@@ -239,8 +260,9 @@
       
 
 
+
   <li class="md-nav__item">
-    <a href="../04-review-and-discussion/" title="Module 4: Discussion" class="md-nav__link">
+    <a href="../04-review-and-discussion/" class="md-nav__link">
       Module 4: Discussion
     </a>
   </li>
@@ -251,8 +273,9 @@
       
 
 
+
   <li class="md-nav__item">
-    <a href="../contribute/" title="Contributing" class="md-nav__link">
+    <a href="../contribute/" class="md-nav__link">
       Contributing
     </a>
   </li>
@@ -263,8 +286,9 @@
       
 
 
+
   <li class="md-nav__item">
-    <a href="../license/" title="License" class="md-nav__link">
+    <a href="../license/" class="md-nav__link">
       License
     </a>
   </li>
@@ -277,7 +301,8 @@
               </div>
             
             
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -300,9 +325,6 @@
                   <a href="https://github.com/aws-samples/aws-scaling-threat-detection-workshop/edit/master/docs/03-detection-and-remediation.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
-                
-                
-                  
                 
                 
                 <!--
@@ -334,27 +356,29 @@ Outline for 03-detection-and-remediation.md
 
 # Link to next module
 -->
-
 <h1 id="agenda">Agenda</h1>
 <ol>
 <li>Compromised AWS IAM credentials ~ 25-40 mins</li>
-<li>Compromised EC2 instance ~ 25-40 mins
-<!-- 3. Compromised S3 bucket  ~ 15-25 mins
---></li>
+<li>Compromised EC2 instance ~ 25-40 mins</li>
 </ol>
+<!-- 3. Compromised S3 bucket  ~ 15-25 mins
+-->
+
 <h1 id="module-3-detect-investigate-respond">Module 3: Detect, Investigate &amp; Respond</h1>
 <p>Unfortunately, due to a misconfiguration in your environment, an attacker may have been able to gain access to the web server. You are getting alerts from the security services you’ve put in place indicating malicious activity. These alerts include communication with known malicious IP addresses, account reconnaissance, changes to an Amazon S3 bucket configuration, and disabling security configurations. You must identify what activity the intruder may have performed and how they did it so you can block the intruder’s access, remediate the vulnerabilities, and restore the configuration to its proper state.</p>
 <h2 id="part-1-compromised-aws-iam-credentials">Part 1 - Compromised AWS IAM credentials</h2>
 <h3 id="detect-and-investigate">Detect and investigate</h3>
 <p>By now you’ve received email alerts from the security services you enabled. Now what? As part of your risk driven detection strategy your organization has decided to prioritize AWS IAM related findings.  </p>
 <ol>
-<li>Sort through your email alerts and identity an alert related to an AWS IAM principal</li>
-</ol>
+<li>
+<p>Sort through your email alerts and identity an alert related to an AWS IAM principal</p>
 <div class="admonition info">
 <p class="admonition-title">Amazon GuardDuty Finding: UnauthorizedAccess:IAMUser/MaliciousIPCaller.Custom</p>
 </div>
-<ol>
-<li>Copy the <code>&lt;Access Key ID&gt;</code> from the e-mail alert. </li>
+</li>
+<li>
+<p>Copy the <code>&lt;Access Key ID&gt;</code> from the e-mail alert.</p>
+</li>
 </ol>
 <p><strong>Explore findings related to the access key (Amazon GuardDuty)</strong></p>
 <p>Now that you have a resource identifier to pivot from you can use Amazon GuardDuty to start doing an initial investigation into these findings.</p>
@@ -365,39 +389,48 @@ Outline for 03-detection-and-remediation.md
 <li>
 <p>Click in the <strong>Add filter criteria</strong> box, select <strong>Access Key ID</strong>, and then paste in the <code>&lt;Access Key ID&gt;</code> you copied from the e-mail, then select <strong>Apply</strong>.</p>
 <div class="admonition question">
-<p class="admonition-title">What findings do you see related to this Access Key ID?</p>
+<p class="admonition-title">What findings do you see related to this Access Key ID? and what do they mean ?</p>
 </div>
 </li>
 <li>
-<p>Click on one of the findings to see the details.</p>
+<p>Click on one of the <strong>UnauthorizedAccess:IAMUser/MaliciousIPCaller.Custom</strong> findings to see the details. This finding indicates a API call was invoked from an IP on a custom malicous IP caller list. </p>
 <div class="admonition question">
-<p class="admonition-title">What principal are these credentials associated with?</p>
+<p class="admonition-title">Looking at the finding details, can you identify what API calls were made?</p>
 </div>
 </li>
 <li>
-<p>Examining <strong>Iam instance profile</strong> under <strong>Resource affected</strong> you can see that the access key referenced in this finding is from an IAM assumed role. </p>
-</li>
-<li>
-<p>Examining <strong>Iam instance profile</strong> under <strong>Resource affected</strong> you will find two strings separated by a new line. The first is the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html" target="_blank">Amazon Resource Name (ARN)</a> of the IAM role that was compromised. The second line will be the  <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-unique-ids" target="_blank">unique ID</a> for the IAM role. </p>
-</li>
-</ol>
+<p>Under <strong>Resources affected</strong> section in the finding details, you will be able to identify the instance ID of the EC2 instance to whom these credentials belonged to. It starts with <strong> ‘i’, such as i-08fa26ffb15a66f5a</strong>. Copy the instance ID as we will need it for later investigations to identify how credentails were compromised in the first place.</p>
 <div class="admonition info">
-<p class="admonition-title">You may have to resize your screen by dragging the middle vertical scrollbar to the left to see the entire text</p>
+<p class="admonition-title">The credentials belong to the role that is assigned to the EC2 instance</p>
 </div>
-<ol>
-<li>
-<p>The <strong>Iam instance profile</strong> contains a unique ID for the entity making the API request, and when the request is made using temporary security credentials (which is what happens for an assume role call) it also includes a session name. In this case the session name is the EC2 instance ID since the assume role call was done using an IAM role for EC2.</p>
 </li>
 <li>
-<p>Copy the full <strong>Iam instance profile</strong> which contains both the unique ID of the role and the IAM Role ARN: 
-<strong>"Iam instance profile": "
-<code>&lt; ARN&gt;</code>
- <code>&lt;unique ID &gt;</code>"</strong></p>
-</li>
-<li>
-<p>Examine the <strong>Iam instance profile</strong> under <strong>Resource affected</strong> and copy it down. This corresponds to the name of the IAM role involved since the temp creds used to make the API call came from EC2 instance with an IAM role attached. </p>
+<p>Now, lets identify which role the access key belongs to. Examine the finding JSON by clicking on the Finding ID hyperlink. </p>
+<p><img alt="03-findingID-link" src="../images/03-findingID-hyperlink.png" /></p>
+<p>Scroll untill you find the <strong>accessKeyDetails</strong> section you can see that the access key referenced in this finding is from an IAM assumed role, which means the Access Key credentials used to invoke these API calls belong to a IAM Role. Copy the name of the role, we will need it for remediation purposes. </p>
+<p><img alt="03-AccessKeyJSON" src="../images/03-AccessKeyJSON.png" /></p>
+<div class="admonition question">
+<p class="admonition-title">Looking through other GuardDuty findings with a similar investigation mind set, what other infomration would you want to glean?</p>
+</div>
 </li>
 </ol>
+<!--
+6. Examining **IAM instance profile** under **Resource affected** you will find two strings separated by a new line. The first is the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html" target="_blank">Amazon Resource Name (ARN)</a> of the IAM role that was compromised. The second line will be the  <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-unique-ids" target="_blank">unique ID</a> for the IAM role. <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2_instance-profiles.html" target="_blank">Instance Profile</a> allows you to pass a role to an EC2 instance.   
+
+    !!! info "You may have to resize your screen by dragging the middle vertical scrollbar to the left to see the entire text"  
+
+    The unique ID in **IAM instance profile** identifies the entity making the API request, and when the request is made using temporary security credentials (which is what happens for an assume role call) it also includes a session name. In this case the session name is the EC2 instance ID since the assume role call was done using an IAM role for EC2.
+
+
+
+7. Copy the full **Iam instance profile** which contains both the unique ID of the role and the IAM Role ARN: 
+**"Iam instance profile": "
+`< ARN>`
+ `<unique ID >`"**
+
+
+8. Examine the **Iam instance profile** under **Resource affected** and copy it down. This corresponds to the name of the IAM role involved since the temp creds used to make the API call came from EC2 instance with an IAM role attached. 
+
 <!--
 
 To use SH for this we could use the insight "AWS users with the most suspicious activity" but that would be a stretch - no way to take this and figure out an IAM role is involved just by using the SH console.
@@ -441,7 +474,7 @@ Filtering on the access key ID like you did previously earlier will only show yo
 <p>Browse to the <a href="https://console.aws.amazon.com/iam/home?region=us-west-2" target="_blank">AWS IAM</a> console.</p>
 </li>
 <li>
-<p>Click <strong>Roles</strong> and find the role you identified in the previous section using the <strong>User Name</strong> you copied down earlier (this is the role attached to the compromised instance), and click on that <strong>Role Name</strong>.</p>
+<p>Click <strong>Roles</strong> and find the role name you identified in the previous section using the <strong>User Name</strong> you copied down earlier (this is the role attached to the compromised instance), and click on that <strong>Role Name</strong>.</p>
 </li>
 <li>
 <p>Click on the <strong>Revoke sessions</strong> tab.</p>
@@ -457,21 +490,19 @@ Filtering on the access key ID like you did previously earlier will only show yo
 </li>
 </ol>
 <p><strong>Restart the EC2 instance to rotate the access keys (EC2)</strong></p>
-<p>All active credentials for the compromised IAM role have been invalidated.  This means the attacker can no longer use those access keys, but it also means that any applications that use this role can't as well.  You knew this going in but decided it was necessary due to the high risk of a compromised IAM access key. In order to ensure the availability of your application you need to refresh the access keys on the instance by stopping and starting the instance. <em>A simple reboot will not change the keys.</em> If you waited the temporary security credential on the instance would be refreshed but this procedure will speed things up. Since you are using AWS Systems Manager for administration on your EC2 instances you can use it to query the metadata to validate that the access keys were rotated after the instance restart.</p>
+<p>All active credentials for the compromised IAM role have been invalidated.  This means the attacker can no longer use those access keys, but it also means that any applications that use this role can't as well.  You knew this going in but decided it was necessary due to the high risk of a compromised IAM access key. In order to ensure the availability of your application you need to refresh the access keys on the instance by stopping and starting the instance. <em>A simple reboot will not change the keys.</em> If you waited, the temporary security credential on the instance would be refreshed but this procedure will speed things up. Since you are using AWS Systems Manager for administration on your EC2 instances you can use it to query the metadata to validate that the access keys were rotated after the instance restart.</p>
 <ol>
-<li>In the <a href="https://us-west-2.console.aws.amazon.com/ec2/v2/home?region=us-west-2#Instances:sort=instanceId" target="_blank">EC2 console</a> <strong>Stop</strong> the Instance named <strong>threat-detection-wksp: Compromised Instance</strong>.</li>
-</ol>
+<li>
+<p>In the <a href="https://us-west-2.console.aws.amazon.com/ec2/v2/home?region=us-west-2#Instances:sort=instanceId" target="_blank">EC2 console</a> <strong>Stop</strong> the Instance named <strong>threat-detection-wksp: Compromised Instance</strong>.</p>
 <p>Check the box next to the instance, select the <strong>Actions menu</strong>, <strong>Instance State</strong>, <strong>Stop</strong>, confirm by pressing <strong>Yes</strong>, <strong>Stop</strong></p>
-<ol>
+</li>
 <li>
 <p>Wait for the Instance State to say <strong>stopped</strong> under <strong>Instance State</strong> (you may need to refresh the EC2 console) and then <strong>Start</strong> the instance.</p>
 <div class="admonition info">
 <p class="admonition-title">You will need to wait until all Status Checks have passed before continuing.</p>
 </div>
-</li>
-</ol>
 <p><strong>Verify the access keys have been rotated (Systems Manager)</strong></p>
-<ol>
+</li>
 <li>
 <p>Go to <a href="https://us-west-2.console.aws.amazon.com/systems-manager/session-manager?region=us-west-2" target="_blank">AWS Systems Manager</a> console and click on <strong>Session Manager</strong> on the left navigation and then click <strong>Start Session</strong>.  </p>
 <p>You should see an instance named <strong>threat-detection-wksp: Compromised Instance</strong> with a <strong>Instance state</strong> of <strong>running</strong>.</p>
@@ -486,9 +517,11 @@ Filtering on the access key ID like you did previously earlier will only show yo
 <div class="codehilite"><pre><span></span><code>curl http://169.254.169.254/latest/meta-data/iam/security-credentials/threat-detection-wksp-compromised-ec2
 </code></pre></div>
 
-
 <div class="admonition question">
 <p class="admonition-title">Why would this scenario be a good use case for auto-scaling groups?</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">You can also connect to the EC2 instance with Sessions Manager using the <strong>Connect</strong> button on the top right of EC2 console.</p>
 </div>
 <p>At this point you've successfully revoked all the active sessions from AWS IAM role and rotated the temporary security credentials on the EC2 instance.</p>
 <!--
@@ -509,15 +542,22 @@ Filtering on the access key ID like you did previously earlier will only show yo
 <p>Add a filter by clicking in the <strong>Add filter</strong> box and scrolling down to <strong>Product Name</strong>, and paste in the word <code>GuardDuty</code>.</p>
 </li>
 <li>
-<p>Use your browser's find function <strong>Control-F</strong> and paste in the <code>&lt;Instance ID&gt;</code> you copied earlier (from the principal ID you gathered in the GuardDuty finding). </p>
+<p>Use your browser's find function <strong>Control-F</strong> and paste in the <code>&lt;Instance ID&gt;</code> you copied earlier. </p>
 </li>
 <li>
-<p>Now copy the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html" target="_blank">Amazon Resource Name (ARN)</a> from the <strong>Resource ID</strong> for the first match. The ARN will look something like this <code>arn:aws:ec2:us-west-2:166199753942:instance/i-0efc5172a5d7ecc6b</code></p>
+<p>Click on one of the findings associated with this instance ID, a new panel will open, expand the <strong>Resources</strong> section.</p>
 </li>
 <li>
-<p>Add one more filter by clicking the <strong>Add filter</strong> box again and selecting <strong>Resource ID</strong> and paste in the ARN from the previous step</p>
+<p>Now look for the ARN, it will look something like this <code>arn:aws:ec2:us-west-2:166199753942:instance/i-0efc5172a5d7ecc6b</code></p>
+</li>
+<li>
+<p>Lets add this ARN as another filter by clicking on the magnifying glass. </p>
+<p><img alt="03-Filtering" src="../images/03-Filtering.png" />  </p>
 </li>
 </ul>
+<div class="admonition info">
+<p class="admonition-title">Anytime you see a magnifying glass in GuardDuty or SecurityHub, you can use it as a quick way to add that attribute as a filter.</p>
+</div>
 <div class="admonition question">
 <p class="admonition-title">What GuardDuty findings do you see related to this instance ID?</p>
 </div>
@@ -528,11 +568,11 @@ Filtering on the access key ID like you did previously earlier will only show yo
     * Add another filter by again clicking in the **Add filter** box and scrolling down to **Product Name**, and paste in the word `GuardDuty`.
 -->
 
-<p>One of the findings should indicate that the EC2 instance is communicating with an IP address on a threat list (<strong>disallowed IP</strong>) which adds further evidence to the conclusion that the instance has been compromised. The other finding should indicate that a system at a particular IP address is performing an SSH brute force attack against your instance.  You now need to investigate if the SSH brute force attack was successful and if that is what allowed the attacker to gain access to the instance.</p>
+<p>One of the findings should indicate that the EC2 instance is communicating with an IP address on a threat list (<strong>disallowed IP</strong>) which adds further evidence to the conclusion that the instance has been compromised. Another finding should indicate that a system at a particular IP address is performing an SSH brute force attack against the instance you are investigating.  You now need to investigate if the SSH brute force attack was successful and if that is what allowed the attacker to gain access to the instance.</p>
 <p><strong>Determine if ssh password authentication is enabled on the EC2 instance (AWS Security Hub)</strong></p>
 <p>Automated responses to threats can do many things. For example, you could have an trigger that helps gather information about the threat that could then be used in the investigation by the security team. With that option in mind, we have a CloudWatch event rule in place that will trigger an <a href="https://aws.amazon.com/inspector/" target="_blank">Amazon Inspector</a> scan of an EC2 instance when GuardDuty detects a particular attack. We will use AWS Security Hub to view the findings from Inspector. We want to determine if the SSH configuration adheres to best practices. </p>
 <ol>
-<li>Go to the <a href="https://us-west-2.console.aws.amazon.com/securityhub/home?region=us-west-2#/findings" target="_blank">AWS Security Hub</a> console.</li>
+<li>Open a fresh <a href="https://us-west-2.console.aws.amazon.com/securityhub/home?region=us-west-2#/findings" target="_blank">AWS Security Hub findings page</a> in the console.(We will be filtering only based on <strong>Inspector</strong> findings in this section.)</li>
 <li>The link should take you to the <strong>Findings</strong> section (if not, click on <strong>Findings</strong> in the navigation on the left). <ul>
 <li>Add a filter by clicking in the <strong>Add filter</strong> box and scrolling down to <strong>Product Name</strong>, and paste in the word <code>Inspector</code>.</li>
 <li>Use your browser's find function <strong>Control-F</strong> and paste in <code>password authentication over SSH</code></li>
@@ -572,21 +612,39 @@ Filtering on the access key ID like you did previously earlier will only show yo
 <li>Click on the log group <strong>/threat-detection-wksp/var/log/secure</strong></li>
 <li>If you have multiple log streams, filter using the Instance ID you copied earlier and click on the stream.</li>
 <li>
-<p>Within the <strong>Filter Events</strong> text box put the following Filter Pattern: <strong><code>[Mon, day, timestamp, ip, id, msg1= Invalid, msg2 = user, ...]</code></strong></p>
+<p>Within the <strong>Filter Events</strong> text box put the following Filter Pattern:<br />
+<strong><code>[Mon, day, timestamp, ip, id, msg1= Invalid, msg2 = user, ...]</code></strong>  </p>
 <div class="admonition question">
 <p class="admonition-title">Do you see any failed (invalid user) attempts to log into the instance? Would that be consistent with an SSH brute force attack?</p>
 </div>
 </li>
 <li>
-<p>Now replace the Filter with one for successful attempts: <strong><code>[Mon, day, timestamp, ip, id, msg1= Accepted, msg2 = password, ...]</code></strong></p>
+<p>Now replace the Filter with one for successful attempts:<br />
+<strong><code>[Mon, day, timestamp, ip, id, msg1= Accepted, msg2 = password, ...]</code></strong></p>
 <div class="admonition question">
 <p class="admonition-title">Do you see any successful attempts to log into the instance? Which linux user was compromised?</p>
 </div>
 </li>
 </ol>
+<!--
+    !!! info "Cloudwatch metrics and logs using Cloudwatch agent are enabled for EC2 instances in this workshop. Such logging is not enabled by default for EC2 instances."
+ -->
 <h3 id="respond_1">Respond</h3>
 <p><strong>Modify the EC2 security group (EC2)</strong></p>
-<p>The active session from the attacker was automatically stopped by an update to the NACL on the subnet where the instance resides. This was done by a CloudWatch event rule trigger that is invoked based on certain GuardDuty findings. You've decided that all administration on EC2 Instances will be done through <a href="https://aws.amazon.com/systems-manager/" target="_blank">AWS Systems Manager</a> so you no longer need administrative ports open so a good next step would be to modify the security group associated with the EC2 instance to prevent the attacker or anyone else from connecting.</p>
+<p>The active session from the attacker was automatically stopped by an update to the NACL on the subnet where the instance resides. This was done by a CloudWatch event rule trigger that is invoked based on certain GuardDuty findings.   </p>
+<ol>
+<li>Look through the <a href="https://us-west-2.console.aws.amazon.com/events/home?region=us-west-2#/rules/" target="_blank">Cloudwatch Event Console </a> to identify how the automation was triggered. </li>
+<li>
+<p>Look through the <a href="https://us-west-2.console.aws.amazon.com/lambda/home?region=us-west-2#/functions" target="_blank">Lambda Functions </a> . </p>
+<div class="admonition info">
+<p class="admonition-title">How would you modify these to suit your own environment.</p>
+</div>
+</li>
+<li>
+<p>Confirm NACL was updated with the IP address of the host that performed the SSH Bruteforce in the <a href="https://us-west-2.console.aws.amazon.com/vpc/home?region=us-west-2#acls:" target="_blank">NACL Console in VPC. </a> The <strong>threat-detection-wksp-compromised</strong> should have IP address of the malicious host denied.</p>
+</li>
+</ol>
+<p>This attack was successfull because SSH was enabled on the instance. You've decided that all administration on EC2 Instances will be done through <a href="https://aws.amazon.com/systems-manager/" target="_blank">AWS Systems Manager</a> so you no longer need administrative ports open so a good next step would be to modify the security group associated with the EC2 instance to prevent the attacker or anyone else from connecting.</p>
 <ol>
 <li>
 <p>Go to the <a href="https://us-west-2.console.aws.amazon.com/ec2/v2/home?region=us-west-2" target="_blank">Amazon EC2</a> Console.</p>
@@ -721,7 +779,7 @@ In the previous step we determined that the S3 bucket that starts with **threat-
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../02-attack-simulation/" title="Module 2: Attack Simulation" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../02-attack-simulation/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -736,7 +794,7 @@ In the previous step we determined that the S3 bucket that starts with **threat-
           </a>
         
         
-          <a href="../04-review-and-discussion/" title="Module 4: Discussion" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../04-review-and-discussion/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
@@ -813,15 +871,15 @@ In the previous step we determined that the S3 bucket that starts with **threat-
       
     </div>
     
-      <script src="../assets/javascripts/vendor.d1f5a259.min.js"></script>
-      <script src="../assets/javascripts/bundle.d5fec882.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="../assets/javascripts/vendor.93c04032.min.js"></script>
+      <script src="../assets/javascripts/bundle.83e5331e.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({
           base: "..",
           features: [],
           search: Object.assign({
-            worker: "../assets/javascripts/worker/search.fae956e7.min.js"
+            worker: "../assets/javascripts/worker/search.8c7e0a7e.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>
