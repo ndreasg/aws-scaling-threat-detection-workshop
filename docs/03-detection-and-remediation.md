@@ -81,7 +81,7 @@ Now that you have a resource identifier to pivot from you can use Amazon GuardDu
 
     ![03-AccessKeyJSON](./images/03-AccessKeyJSON.png)
 
-    !!! question "Looking through other GuardDuty findings with a similar investigation mind set, what other infomration would you want to glean?"
+    !!! question "Looking through other GuardDuty findings with a similar investigation mind set, what other information would you want to glean?"
 
 
 <!--
