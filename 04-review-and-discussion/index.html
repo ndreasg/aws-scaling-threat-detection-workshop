@@ -451,12 +451,6 @@
 <p class="admonition-title">Successful login is confirmed in CloudWatch Logs (/threat-detection-wksp/var/log/secure).</p>
 </div>
 </li>
-</ol>
-<!-- 5. The EC2 Instance that is created in the **Module** 2 CloudFormation template disabled default encryption on the **Data** bucket.  In addition the CloudFormation template made the **Data** bucket public.  This is used for the Macie part of the investigation in Module 3. We pretend that the attacker made the bucket public and removed the default encryption from the bucket.
-
-    !!! info "**Macie Alert**: S3 Bucket IAM policy grants global read rights."
--->
-<ol>
 <li>
 <p>The Compromised Instance also has a cron job that continuously pings the Malicious Host to generate a GuardDuty finding based off the custom threat list.</p>
 <div class="admonition info">
@@ -479,6 +473,10 @@
 </ol>
 </li>
 </ol>
+<!-- 5. The EC2 Instance that is created in the **Module** 2 CloudFormation template disabled default encryption on the **Data** bucket.  In addition the CloudFormation template made the **Data** bucket public.  This is used for the Macie part of the investigation in Module 3. We pretend that the attacker made the bucket public and removed the default encryption from the bucket.
+
+    !!! info "**Macie Alert**: S3 Bucket IAM policy grants global read rights."
+-->
 <h2 id="cleanup">Cleanup</h2>
 <p>In order to prevent charges to your account we recommend cleaning up the infrastructure that was created. If you plan to keep things running so you can examine the workshop a bit more please remember to do the cleanup when you are done. It is very easy to leave things running in an AWS account, forgot about it, and then accrue charges. </p>
 <div class="admonition info">
